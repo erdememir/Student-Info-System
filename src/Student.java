@@ -1,52 +1,77 @@
 public class Student {
-    Course c1;
-    Course c2;
-    Course c3;
     String name;
-    String studentNo;
-    String classes;
+    String stuNo;
+    int classes;
+    Course mat;
+    Course fzk;
+    Course kmy;
     double average;
     boolean isPass;
 
-    Student(String name, String studentNo, String classes, Course c1, Course c2, Course c3) {
+    Student(String name, String stuNo, int classes, Course mat, Course fzk, Course kmy) {
         this.name = name;
-        this.studentNo = studentNo;
+        this.stuNo = stuNo;
         this.classes = classes;
-        this.c1 = c1;
-        this.c2 = c2;
-        this.c3 = c3;
+        this.mat = mat;
+        this.fzk = fzk;
+        this.kmy = kmy;
         this.average = 0.0;
         this.isPass = false;
     }
 
-    void addBulkExamNote(int note1, int note2, int note3) {
-        if (note1 >= 0 && note1 <= 100)
-            this.c1.note = note1;
-        if (note2 >= 0 && note2 <= 100)
-            this.c2.note = note2;
-        if (note3 >= 0 && note3 <= 100)
-            this.c3.note = note3;
-    }
-
-    void isPass() {
-        System.out.println("===========================");
-        this.average = (this.c1.note + this.c2.note + this.c3.note) / 3.0;
-        if (this.average > 55){
-            System.out.println("Sınıfı başarıyla tamamladınız.");
-            this.isPass = true;
-        } else {
-            System.out.println("Sınıfta kaldınız.");
-            this.isPass = false;
+    public void addBulkExamNote(int mat, int fzk, int kmy) {
+        if (mat >= 0 && mat <= 100) {
+            this.mat.setNote(mat);
         }
-        printNote();
+        if (fzk >= 0 && fzk <= 100) {
+            this.fzk.setNote(fzk);
+        }
+        if (kmy >= 0 && kmy <= 100) {
+            this.kmy.setNote(kmy);
+        }
     }
 
-    void printNote() {
-        System.out.println("Öğrenci Adı\t\t:" + this.name);
-        System.out.println("Öğrenci No\t\t:" + studentNo);
-        System.out.println(this.c1.name + " Notu\t:" + this.c1.note);
-        System.out.println(this.c2.name + " Notu\t:" + this.c2.note);
-        System.out.println(this.c3.name + " Notu\t:" + this.c3.note);
-        System.out.println("Ortalamanız\t\t:" + this.average);
+    public void addVerbalExamNotes(int mat, int fzk, int kmy) {
+        if (mat >= 0 && mat <= 100) {
+            this.mat.setVerbalNote(mat);
+        }
+        if (fzk >= 0 && fzk <= 100) {
+            this.fzk.setVerbalNote(fzk);
+        }
+        if (kmy >= 0 && kmy <= 100) {
+            this.kmy.setVerbalNote(kmy);
+        }
+    }
+
+    public void isPass() {
+        if (this.mat.note == 0 || this.fzk.note == 0 || this.kmy.note == 0 || this.mat.verbalNote == 0 || this.fzk.verbalNote == 0 || this.kmy.verbalNote == 0) {
+            System.out.println("Notlar tam olarak girilmemiş.");
+        } else {
+            this.isPass = isCheckPass();
+            printNote();
+            System.out.println("Ortalama: " + this.average);
+            if (this.isPass) {
+                System.out.println("Sınıfı geçti.");
+            } else {
+                System.out.println("Sınıfta kaldı.");
+            }
+        }
+    }
+
+    public void printNote() {
+        System.out.println("=============================");
+        System.out.println("Öğrenci: " + this.name);
+        System.out.println("Matematik notu: " + this.mat.note + ", Sözlü: " + this.mat.verbalNote);
+        System.out.println("Fizik notu: " + this.fzk.note + ", Sözlü: " + this.fzk.verbalNote);
+        System.out.println("Kimya notu: " + this.kmy.note + ", Sözlü: " + this.kmy.verbalNote);
+    }
+
+    public boolean isCheckPass() {
+        calcAverage();
+        return this.average > 55;
+    }
+
+    public void calcAverage() {
+        this.average = (0.8 * (this.mat.note + this.fzk.note + this.kmy.note) + 0.2 * (this.mat.verbalNote + this.fzk.verbalNote + this.kmy.verbalNote)) / 3;
     }
 }

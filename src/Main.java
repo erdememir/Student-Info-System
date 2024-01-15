@@ -1,22 +1,30 @@
 public class Main {
     public static void main(String[] args) {
-        Teacher t1 = new Teacher("Emirhan Erdem", "+905330331324", "ENG");
-        Teacher t2 = new Teacher("Kadir Sunman", "+905445825855", "YZLM");
-        Teacher t3 = new Teacher("Samet Demirkul", "+905376549878", "MAT");
+        Course mat = new Course("Matematik", "MAT101", "MAT");
+        Course fzk = new Course("Fizik", "FZK101", "FZK");
+        Course kmy = new Course("Kimya", "KMY101", "KMY");
 
-        Course english = new Course("İngilizce", "101", "ENG");
-        english.addTeacher(t1);
-        Course coding = new Course("Yazılım", "102", "YZLM");
-        coding.addTeacher(t2);
-        Course mathematic = new Course("Matematik", "103", "MAT");
-        mathematic.addTeacher(t3);
+        Teacher t1 = new Teacher("Ali Hoca", "123321123", "MAT");
+        Teacher t2 = new Teacher("Veli Hoca", "321213213", "FZK");
+        Teacher t3 = new Teacher("Cumali Hoca", "231231232", "KMY");
 
-        Student s1 = new Student("Kerem Aktürkoğlu", "07", "3", english, coding, mathematic);
-        s1.addBulkExamNote(100,78,50);
+        mat.addTeacher(t1);
+        fzk.addTeacher(t2);
+        kmy.addTeacher(t3);
+
+        Student s1 = new Student("Osman", "001", 3, mat, fzk, kmy);
+        s1.addBulkExamNote(50, 20, 40);
+        s1.addVerbalExamNotes(70, 30, 50);
         s1.isPass();
 
-        Student s2 = new Student("Mauro Icardi", "09", "3", english, coding, mathematic);
-        s2.addBulkExamNote(75,60,30);
+        Student s2 = new Student("Ayşe", "002", 3, mat, fzk, kmy);
+        s2.addBulkExamNote(100, 50, 40);
+        s2.addVerbalExamNotes(80, 40, 60);
         s2.isPass();
+
+        Student s3 = new Student("Fatma", "003", 3, mat, fzk, kmy);
+        s3.addBulkExamNote(50, 20, 40);
+        s3.addVerbalExamNotes(60, 25, 45);
+        s3.isPass();
     }
 }
